@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use App\Models\Driver;
 
 class DatabaseSeeder extends Seeder
 {
@@ -19,8 +20,18 @@ class DatabaseSeeder extends Seeder
 
         User::factory()->create([
             'name' => 'Admin',
-            'email' => 'admin@test.com',
+            'email' => 'admin@example.com',
             'role' => 'admin'
         ]);
+
+        
+    // kalau belum ada user lain, bikin dulu biar user_id gak null
+    User::factory()->count(20)->create([
+        'role' => 'user'
+    ]);
+
+    // bikin 20 driver dummy
+    Driver::factory()->count(20)->create();
+
     }
 }

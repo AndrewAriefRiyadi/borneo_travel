@@ -16,6 +16,24 @@
                         {{ __('Dashboard') }}
                     </x-nav-link>
                 </div>
+
+                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <x-nav-link :href="route('driver.index')" :active="request()->routeIs('driver.index')">
+                        Drivers
+                    </x-nav-link>
+                </div>
+
+                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <x-nav-link :href="route('car.index')" :active="request()->routeIs('car.index')">
+                        Cars
+                    </x-nav-link>
+                </div>
+
+                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <x-nav-link :href="route('trip.index')" :active="request()->routeIs('trip.index')">
+                        Trips
+                    </x-nav-link>
+                </div>
             </div>
 
             <!-- Settings Dropdown -->

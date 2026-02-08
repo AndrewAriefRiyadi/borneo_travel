@@ -10,11 +10,13 @@ class Car extends Model
         'unit_identity',
     ];
 
-    public function trip(){
-        $this->hasMany(Trip::class);
+    public function trip()
+    {
+        return $this->hasMany(Trip::class);
     }
 
-    public function cost(){
-        $this->hasMany(Cost::class);
+    public function cost()
+    {
+        return $this->hasMany(Cost::class);
     }
 }

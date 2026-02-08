@@ -19,11 +19,13 @@ class Cost extends Model
         'cost_total'
     ];
 
-    public function trip() {
-        $this->belongsTo(Trip::class);
+    public function trip()
+    {
+        return $this->belongsTo(Trip::class);
     }
 
-    public function car(){
-        $this->belongsTo(Car::class);
+    public function car()
+    {
+        return $this->belongsTo(Car::class);
     }
 }

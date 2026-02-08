@@ -23,15 +23,23 @@ class Trip extends Model
         'trip_total'
     ];
 
-    public function driver() {
-        $this->belongsTo(Driver::class);
+    public function driver()
+    {
+        return $this->belongsTo(Driver::class);
     }
 
-    public function car(){
-        $this->belongsTo(Car::class);
+    public function car()
+    {
+        return $this->belongsTo(Car::class);
     }
 
-    public function cost(){
-        $this->hasMany(Cost::class);
+    public function cost()
+    {
+        return $this->hasMany(Cost::class);
+    }
+
+    public function deposit()
+    {
+        return $this->hasMany(Deposit::class);
     }
 }

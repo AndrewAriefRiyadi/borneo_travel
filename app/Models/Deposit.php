@@ -12,4 +12,8 @@ class Deposit extends Model
         'total_driver',
         'total_company'
     ];
+
+    public function trip() {
+        return $this->belongsTo(Trip::class);
+    }
 }

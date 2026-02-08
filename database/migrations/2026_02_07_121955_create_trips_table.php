@@ -24,9 +24,9 @@ return new class extends Migration
             $table->string('service_type');
             $table->integer('passengers_amount');
             $table->float('departure_total');
-            $table->string('departure_description');
+            $table->string('departure_description')->nullable();
             $table->float('return_total');
-            $table->string('return_description');
+            $table->string('return_description')->nullable();
             $table->float('fee_total');
             $table->float('trip_total');
             $table->timestamps();
