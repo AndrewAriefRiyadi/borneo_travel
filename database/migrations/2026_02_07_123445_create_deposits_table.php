@@ -18,6 +18,7 @@ return new class extends Migration
             $table->float('total_deposit');
             $table->float('total_driver');
             $table->float('total_company');
+            $table->enum('status', ['Pending','Approved','Declined']);
             $table->timestamps();
         });
     }

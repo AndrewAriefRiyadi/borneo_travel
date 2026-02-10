@@ -6,6 +6,7 @@ use App\Models\Trip;
 use App\Models\Car;
 use App\Models\Driver;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class TripController extends Controller
 {
@@ -34,8 +35,6 @@ class TripController extends Controller
         return view('trip.edit', compact('trip', 'drivers', 'cars'));
     }
 
-
-
     public function store(Request $request)
     {
         $validated = $request->validate([
@@ -59,15 +58,18 @@ class TripController extends Controller
 
             'fee_total' => 'required|numeric|min:0',
         ]);
-
         $trip_total = $validated['departure_total'] + $validated['return_total'] + $validated['fee_total'];
-
         Trip::create([
             ...$validated,
             'trip_total' => $trip_total,
         ]);
-
         return redirect()->route('trip.index')->with('success', 'Trip berhasil dibuat.');
+    }
+
+    public function myTrips(){
+        $user_id = Auth::id();
+        $trips = Trip::with(['driver', 'car'])->where('driver_id','=',$user_id)->latest()->get();
+        return view('trip.index', compact('trips'));
     }
 
 }

@@ -14,10 +14,10 @@
                     <div class="flex items-center justify-between mb-6">
                         <h1 class="text-2xl font-bold">Trips</h1>
 
-                        <a href="{{ route('trip.create') }}"
+                        {{-- <a href="{{ route('trip.create') }}"
                             class="inline-flex items-center px-5 py-2 bg-blue-600 rounded-md text-sm font-semibold text-white hover:bg-blue-700 transition">
                             + Create Trip
-                        </a>
+                        </a> --}}
                     </div>
 
                     {{-- Table --}}
@@ -30,9 +30,9 @@
                                     <th class="py-3 px-2">Return</th>
                                     <th class="py-3 px-2">Driver</th>
                                     <th class="py-3 px-2">Car</th>
-                                    <th class="py-3 px-2">Route</th>
+                                    <th class="py-3 px-2">Route 1</th>
+                                    <th class="py-3 px-2">Route 2</th>
                                     <th class="py-3 px-2">Service</th>
-                                    <th class="py-3 px-2">Passengers</th>
                                     <th class="py-3 px-2 text-right">Trip Total</th>
                                 </tr>
                             </thead>
@@ -64,16 +64,17 @@
                                         </td>
 
                                         <td class="py-3 px-2">
-                                            {{ $trip->start_place }} → {{ $trip->end_place }}
+                                            {{ $trip->route_1}}
+                                        </td>
+
+                                        <td class="py-3 px-2">
+                                            {{ $trip->route_2}}
                                         </td>
 
                                         <td class="py-3 px-2">
                                             {{ $trip->service_type }}
                                         </td>
 
-                                        <td class="py-3 px-2">
-                                            {{ $trip->passengers_amount }}
-                                        </td>
 
                                         <td class="py-3 px-2 text-right font-semibold">
                                             Rp {{ number_format($trip->trip_total, 0, ',', '.') }}

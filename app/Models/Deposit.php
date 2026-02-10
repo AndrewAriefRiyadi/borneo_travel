@@ -10,7 +10,8 @@ class Deposit extends Model
         'trip_id',
         'total_deposit',
         'total_driver',
-        'total_company'
+        'total_company',
+        'status'
     ];
 
     public function trip() {

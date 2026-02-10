@@ -19,8 +19,8 @@ return new class extends Migration
             $table->date('return_date');
             $table->foreignIdFor(Driver::class,'driver_id')->constrained()->cascadeOnDelete();
             $table->foreignIdFor(Car::class,'car_id')->constrained()->cascadeOnDelete();
-            $table->string('start_place');
-            $table->string('end_place');
+            $table->string('route_1');
+            $table->string('route_2');
             $table->string('service_type');
             $table->integer('passengers_amount');
             $table->float('departure_total');

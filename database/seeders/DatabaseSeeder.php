@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\Driver;
+use Spatie\Permission\Models\Role;
 
 class DatabaseSeeder extends Seeder
 {
@@ -18,20 +19,27 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
 
-        User::factory()->create([
+        Role::firstOrCreate(['name' => 'admin']);
+        Role::firstOrCreate(['name' => 'user']);
+
+        $user = User::factory()->create([
             'name' => 'Admin',
             'email' => 'admin@example.com',
             'role' => 'admin'
         ]);
 
-        
-    // kalau belum ada user lain, bikin dulu biar user_id gak null
-    User::factory()->count(20)->create([
-        'role' => 'user'
-    ]);
+        $user->assignRole('admin');
 
-    // bikin 20 driver dummy
-    Driver::factory()->count(20)->create();
+
+        // kalau belum ada user lain, bikin dulu biar user_id gak null
+        User::factory()->count(20)->create([
+            'role' => 'user'
+        ]);
+
+        // bikin 20 driver dummy
+        Driver::factory()->count(20)->create()->each(function ($driver) {
+            $driver->user->assignRole('user');
+        });
 
     }
 }
