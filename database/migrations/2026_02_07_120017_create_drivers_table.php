@@ -15,7 +15,6 @@ return new class extends Migration
         Schema::create('drivers', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(User::class, 'user_id')->constrained()->cascadeOnDelete();
-            $table->string('name');
             $table->float('persentase_hasil');
             $table->float('tanggungan_koperasi');
             $table->timestamps();

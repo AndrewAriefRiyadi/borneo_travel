@@ -7,6 +7,19 @@
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="flex gap-2 mb-6">
+                {{-- Tombol Setor --}}
+                <a href="{{ route('deposit.edit', $trip->deposit->id) }}"
+                    class="inline-flex items-center px-4 py-2 bg-green-600 rounded-md text-sm font-semibold text-white hover:bg-green-700 transition">
+                    Setor
+                </a>
+
+                {{-- Tombol Liat Setoran --}}
+                <a href="{{ route('deposit.edit', $trip->deposit->id) }}"
+                    class="inline-flex items-center px-4 py-2 bg-gray-800 rounded-md text-sm font-semibold text-white hover:bg-gray-700 transition">
+                    Liat Setoran
+                </a>
+            </div>
 
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
@@ -36,7 +49,7 @@
                                         @foreach ($drivers as $driver)
                                             <option value="{{ $driver->id }}"
                                                 {{ $trip->driver_id == $driver->id ? 'selected' : '' }}>
-                                                {{ $driver->name }}
+                                                {{ $driver->user->name }}
                                             </option>
                                         @endforeach
                                     </select>
@@ -74,14 +87,14 @@
                             {{-- Start & End --}}
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
                                 <div>
-                                    <label class="block text-sm font-medium text-gray-700 mb-1">Start Place</label>
-                                    <input disabled type="text" value="{{ $trip->start_place }}"
+                                    <label class="block text-sm font-medium text-gray-700 mb-1">Route 1</label>
+                                    <input disabled type="text" value="{{ $trip->route_1 }}"
                                         class="w-full rounded-md border-gray-300 bg-gray-100 cursor-not-allowed">
                                 </div>
 
                                 <div>
-                                    <label class="block text-sm font-medium text-gray-700 mb-1">End Place</label>
-                                    <input disabled type="text" value="{{ $trip->end_place }}"
+                                    <label class="block text-sm font-medium text-gray-700 mb-1">Route 2</label>
+                                    <input disabled type="text" value="{{ $trip->route_2 }}"
                                         class="w-full rounded-md border-gray-300 bg-gray-100 cursor-not-allowed">
                                 </div>
                             </div>
@@ -156,10 +169,101 @@
                                 </div>
                             </div>
                         </div>
+                        {{-- ================= COST DETAIL ================= --}}
+                        <div class="border rounded-lg p-6 bg-gray-50">
+                            <h2 class="text-lg font-semibold mb-4">Cost Detail</h2>
+
+                            {{-- BBM --}}
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-1">BBM Total</label>
+                                    <input type="number" step="0.01" value="{{ $trip->cost->bbm_total ?? 0 }}"
+                                        disabled class="w-full rounded-md border-gray-300 bg-gray-100">
+                                </div>
+
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-1">BBM Attachment</label>
+
+                                    @if (!empty($trip->cost->bbm_attachment))
+                                        <a href="{{ asset('storage/' . $trip->cost->bbm_attachment) }}" target="_blank"
+                                            class="inline-flex items-center px-4 py-2 bg-gray-800 rounded-md text-sm font-semibold text-white hover:bg-gray-700 transition">
+                                            View Attachment
+                                        </a>
+                                    @else
+                                        <p class="text-sm text-gray-500">No attachment</p>
+                                    @endif
+                                </div>
+                            </div>
+
+                            {{-- Wash --}}
+                            <div class="mt-4">
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Wash Total</label>
+                                <input type="number" step="0.01" value="{{ $trip->cost->wash_total ?? 0 }}"
+                                    disabled class="w-full rounded-md border-gray-300 bg-gray-100">
+                            </div>
+
+                            {{-- Parking --}}
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-1">Parking Total</label>
+                                    <input type="number" step="0.01"
+                                        value="{{ $trip->cost->parking_total ?? 0 }}" disabled
+                                        class="w-full rounded-md border-gray-300 bg-gray-100">
+                                </div>
+
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-1">Parking
+                                        Attachment</label>
+
+                                    @if (!empty($trip->cost->parking_attachment))
+                                        <a href="{{ asset('storage/' . $trip->cost->parking_attachment) }}"
+                                            target="_blank"
+                                            class="inline-flex items-center px-4 py-2 bg-gray-800 rounded-md text-sm font-semibold text-white hover:bg-gray-700 transition">
+                                            View Attachment
+                                        </a>
+                                    @else
+                                        <p class="text-sm text-gray-500">No attachment</p>
+                                    @endif
+                                </div>
+                            </div>
+
+                            {{-- Repair --}}
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-1">Repair Total</label>
+                                    <input type="number" step="0.01"
+                                        value="{{ $trip->cost->repair_total ?? 0 }}" disabled
+                                        class="w-full rounded-md border-gray-300 bg-gray-100">
+                                </div>
+
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-1">Repair
+                                        Attachment</label>
+
+                                    @if (!empty($trip->cost->repair_attachment))
+                                        <a href="{{ asset('storage/' . $trip->cost->repair_attachment) }}"
+                                            target="_blank"
+                                            class="inline-flex items-center px-4 py-2 bg-gray-800 rounded-md text-sm font-semibold text-white hover:bg-gray-700 transition">
+                                            View Attachment
+                                        </a>
+                                    @else
+                                        <p class="text-sm text-gray-500">No attachment</p>
+                                    @endif
+                                </div>
+                            </div>
+
+                            {{-- Cost Total --}}
+                            <div class="mt-4">
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Cost Total</label>
+                                <input type="number" step="0.01" value="{{ $trip->cost->cost_total ?? 0 }}"
+                                    disabled class="w-full rounded-md border-gray-300 bg-gray-100">
+                            </div>
+                        </div>
+
 
                     </form>
                     {{-- Delete button (di luar form supaya tidak nested) --}}
-                    <div class="mt-4 flex justify-start">
+                    {{-- <div class="mt-4 flex justify-start">
                         <form action="{{ route('trip.delete', $trip->id) }}" method="POST"
                             onsubmit="return confirm('Are you sure you want to delete this trip?');">
                             @csrf
@@ -170,7 +274,7 @@
                                 Delete Trip
                             </button>
                         </form>
-                    </div>
+                    </div> --}}
                 </div>
             </div>
 

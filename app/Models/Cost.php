@@ -10,11 +10,13 @@ class Cost extends Model
         'trip_id',
         'bbm_total',
         'bbm_attachment',
+        'makan_total',
         'wash_total',
         'parking_total',
         'parking_attachment',
         'repair_total',
         'repair_attachment',
+        'pom_total',
         'car_id',
         'cost_total'
     ];

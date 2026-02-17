@@ -34,7 +34,6 @@ class DriverController extends Controller
             'email' => 'required|email|max:255|unique:users,email',
             'password' => 'required|string|min:6',
 
-            'name' => 'required|string|max:255',
             'persentase_hasil' => 'required|integer|in:40,45,50',
             'tanggungan_koperasi' => 'required|integer|min:0',
         ]);
@@ -50,7 +49,6 @@ class DriverController extends Controller
 
             Driver::create([
                 'user_id' => $user->id,
-                'name' => $validated['name'],
                 'persentase_hasil' => $validated['persentase_hasil'],
                 'tanggungan_koperasi' => $validated['tanggungan_koperasi'],
             ]);
@@ -70,7 +68,6 @@ class DriverController extends Controller
             'email' => 'required|email|max:255|unique:users,email,' . $driver->user->id,
             'password' => 'nullable|string|min:6',
 
-            'name' => 'required|string|max:255',
             'persentase_hasil' => 'required|integer|in:40,45,50',
             'tanggungan_koperasi' => 'required|integer|min:0',
         ]);
@@ -87,7 +84,6 @@ class DriverController extends Controller
 
         // update driver
         $driver->update([
-            'name' => $validated['name'],
             'persentase_hasil' => $validated['persentase_hasil'],
             'tanggungan_koperasi' => $validated['tanggungan_koperasi'],
         ]);

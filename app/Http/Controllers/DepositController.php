@@ -11,4 +11,11 @@ class DepositController extends Controller
         $deposits = Deposit::all();
         return view('deposit.index', compact('deposits'));
     }
+    public function edit($id){
+        $deposit = Deposit::findOrFail($id);
+        return view('deposit.edit', compact('deposit'));
+    }
+
+    
+
 }

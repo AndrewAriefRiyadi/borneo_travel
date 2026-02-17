@@ -35,11 +35,11 @@ class Trip extends Model
 
     public function cost()
     {
-        return $this->hasMany(Cost::class);
+        return $this->hasOne(Cost::class);
     }
 
     public function deposit()
     {
-        return $this->hasMany(Deposit::class);
+        return $this->hasOne(Deposit::class);
     }
 }

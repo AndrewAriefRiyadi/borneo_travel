@@ -21,6 +21,9 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
+    Route::get('/trip/edit/{id}', [TripController::class, 'edit'])->name('trip.edit');
+    Route::get('/deposit/edit/{id}', [DepositController::class, 'edit'])->name('deposit.edit');
+
     Route::middleware(['role:admin'])->group(function () {
         Route::get('/driver', [DriverController::class, 'index'])->name('driver.index');
         Route::get('/driver/create', [DriverController::class, 'create'])->name('driver.create');
@@ -32,24 +35,22 @@ Route::middleware('auth')->group(function () {
         Route::get('/car', [CarController::class, 'index'])->name('car.index');
         Route::post('/car', [CarController::class, 'store'])->name('car.store');
         Route::delete('/car/{id}', [CarController::class, 'delete'])->name('car.delete');
-
         Route::get('/trip', [TripController::class, 'index'])->name('trip.index');
-        Route::get('/trip/create', [TripController::class, 'create'])->name('trip.create');
-        Route::post('/trip/create', [TripController::class, 'store'])->name('trip.store');
-        Route::get('/trip/edit/{id}', [TripController::class, 'edit'])->name('trip.edit');
+        
         Route::put('/trip/edit/{id}', [TripController::class, 'update'])->name('trip.update');
         Route::delete('/trip/edit/{id}', [TripController::class, 'delete'])->name('trip.delete');
 
         Route::get('/deposit', [DepositController::class, 'index'])->name('deposit.index');
         Route::get('/deposit/create', [DepositController::class, 'create'])->name('deposit.create');
         Route::post('/deposit/create', [DepositController::class, 'store'])->name('deposit.store');
-        Route::get('/deposit/edit/{id}', [DepositController::class, 'edit'])->name('deposit.edit');
         Route::put('/deposit/edit/{id}', [DepositController::class, 'update'])->name('deposit.update');
         Route::delete('/deposit/edit/{id}', [DepositController::class, 'delete'])->name('deposit.delete');
     });
 
     Route::middleware(['role:user'])->group(function () {
         Route::get('/my-trips', [TripController::class, 'myTrips'])->name('my-trips.index');
+        Route::get('/trip/create', [TripController::class, 'create'])->name('trip.create');
+        Route::post('/trip/create', [TripController::class, 'store'])->name('trip.store');
     });
 });
 

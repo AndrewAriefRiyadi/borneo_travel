@@ -14,7 +14,6 @@ class DriverFactory extends Factory
     {
         return [
             'user_id' => User::inRandomOrder()->first()->id,
-            'name' => $this->faker->name(),
             'persentase_hasil' => $this->faker->randomElement([45, 50, 40]),
             'tanggungan_koperasi' => $this->faker->randomElement([75000, 100000, 50000]),
         ];

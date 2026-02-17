@@ -33,7 +33,7 @@
                                 <tr onclick="window.location='{{ route('driver.edit', $driver->id) }}'"
                                     class="cursor-pointer hover:bg-gray-100 transition">
                                     <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $driver->name }}</td>
+                                    <td>{{ $driver->user?->name }}</td>
                                     <td>{{ $driver->persentase_hasil }}%</td>
                                     <td>{{ $driver->tanggungan_koperasi }}</td>
                                 </tr>
