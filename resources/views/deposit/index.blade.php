@@ -26,7 +26,7 @@
                             <thead>
                                 <tr class="text-left border-b">
                                     <th class="py-3 px-2">No</th>
-                                    <th class="py-3 px-2">Trips ID</th>
+                                    <th class="py-3 px-2">Driver</th>
                                     <th class="py-3 px-2">Total Deposits</th>
                                     <th class="py-3 px-2">Total Driver</th>
                                     <th class="py-3 px-2">Total Company</th>
@@ -41,7 +41,7 @@
 
 
                                         <td class="py-3 px-2 font-medium">
-                                            {{ $deposit->trip_id }}
+                                            {{ $deposit->trip?->driver?->user?->name }}
                                         </td>
 
                                         <td class="py-3 px-2">

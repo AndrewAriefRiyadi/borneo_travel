@@ -34,7 +34,7 @@
                                     <th class="py-3 px-2">Route 1</th>
                                     <th class="py-3 px-2">Route 2</th>
                                     <th class="py-3 px-2">Status Setoran</th>
-                                    <th class="py-3 px-2 text-right">Trip Total</th>
+                                    <th class="py-3 px-2 text-right">Total Setoran</th>
                                 </tr>
                             </thead>
 
@@ -57,7 +57,7 @@
                                         </td>
 
                                         <td class="py-3 px-2 font-medium">
-                                            {{ $trip->driver?->name ?? '-' }}
+                                            {{ $trip->driver?->user?->name ?? '-' }}
                                         </td>
 
                                         <td class="py-3 px-2">
@@ -73,12 +73,12 @@
                                         </td>
 
                                         <td class="py-3 px-2">
-                                            {{ $trip->deposit?->status ?? '-' }}
+                                            {{ $trip->deposit?->payment?->status ?? '-' }}
                                         </td>
 
 
                                         <td class="py-3 px-2 text-right font-semibold">
-                                            Rp {{ number_format($trip->trip_total, 0, ',', '.') }}
+                                            Rp {{ number_format($trip->deposit?->total_deposit, 0, ',', '.') }}
                                         </td>
                                     </tr>
                                 @endforeach

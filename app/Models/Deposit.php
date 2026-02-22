@@ -11,10 +11,14 @@ class Deposit extends Model
         'total_deposit',
         'total_driver',
         'total_company',
-        'status'
+        'total_koperasi'
     ];
 
     public function trip() {
         return $this->belongsTo(Trip::class);
+    }
+
+    public function payment() {
+        return $this->hasOne(Payment::class);
     }
 }

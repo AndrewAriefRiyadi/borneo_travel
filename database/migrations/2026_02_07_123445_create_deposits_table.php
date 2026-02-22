@@ -5,8 +5,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
@@ -14,14 +13,14 @@ return new class extends Migration
     {
         Schema::create('deposits', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(Trip::class,'trip_id')->constrained()->cascadeOnDelete();
+            $table->foreignIdFor(Trip::class, 'trip_id')->constrained()->cascadeOnDelete();
             $table->float('total_deposit');
             $table->float('total_driver');
             $table->float('total_company');
-            $table->enum('status', ['Pending','Approved','Declined']);
+            $table->float('total_koperasi');
             $table->timestamps();
         });
-    }
+    }       
 
     /**
      * Reverse the migrations.

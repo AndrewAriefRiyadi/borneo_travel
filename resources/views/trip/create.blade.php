@@ -29,8 +29,7 @@
                     
                         get trip_total() {
                             return (Number(this.departure_total) || 0) +
-                                (Number(this.return_total) || 0) +
-                                (Number(this.fee_total) || 0) -
+                                (Number(this.return_total) || 0) -
                                 (Number(this.lunas_kantor) || 0);
                         },
                     
@@ -350,7 +349,7 @@
                                         class="w-full rounded-md border-gray-200 bg-gray-100" readonly>
 
                                     <p class="text-xs text-gray-500 mt-1">
-                                        Otomatis dihitung dari departure + return + fee - lunas kantor.
+                                        Otomatis dihitung dari departure + return - lunas kantor.
                                     </p>
                                 </div>
 
@@ -365,6 +364,21 @@
                                     @error('lunas_kantor')
                                         <p class="text-sm text-red-600 mt-1">{{ $message }}</p>
                                     @enderror
+                                </div>
+
+                                {{-- Bayar Angsuran --}}
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-1">
+                                        Bayar Angsuran
+                                    </label>
+                                    <select name="angsuran_total"
+                                        class="w-full rounded-md border-gray-300 focus:border-indigo-500 focus:ring-indigo-500"
+                                        required>
+                                        <option value="">-- Choose Total Angsuran --</option>
+                                        <option value="100000">Rp 100.000</option>
+                                        <option value="50000">Rp 50.000</option>
+                                        <option value="0">Rp 0</option>
+                                    </select>
                                 </div>
 
                             </div>

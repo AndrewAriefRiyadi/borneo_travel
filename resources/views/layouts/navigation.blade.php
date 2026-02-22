@@ -36,16 +36,25 @@
                     </div>
 
                     <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                        <x-nav-link :href="route('report.index')" :active="request()->routeIs('report.index')">
+                            Laporan
+                        </x-nav-link>
+                    </div>
+
+                    
+
+
+                    {{-- <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                         <x-nav-link :href="route('deposit.index')" :active="request()->routeIs('deposit.index')">
                             Deposits
                         </x-nav-link>
-                    </div>
+                    </div> --}}
                 @endrole
 
                 @role('user')
                     <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                         <x-nav-link :href="route('my-trips.index')" :active="request()->routeIs('my-trips.index')">
-                            Trips
+                            My Trips
                         </x-nav-link>
                     </div>
                 @endrole

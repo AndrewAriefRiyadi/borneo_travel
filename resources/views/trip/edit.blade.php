@@ -7,19 +7,42 @@
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="flex gap-2 mb-6">
-                {{-- Tombol Setor --}}
-                <a href="{{ route('deposit.edit', $trip->deposit->id) }}"
-                    class="inline-flex items-center px-4 py-2 bg-green-600 rounded-md text-sm font-semibold text-white hover:bg-green-700 transition">
-                    Setor
-                </a>
-
+            <div class="flex items-center gap-3 mb-6">
+                
                 {{-- Tombol Liat Setoran --}}
                 <a href="{{ route('deposit.edit', $trip->deposit->id) }}"
                     class="inline-flex items-center px-4 py-2 bg-gray-800 rounded-md text-sm font-semibold text-white hover:bg-gray-700 transition">
                     Liat Setoran
                 </a>
+
+                {{-- Badge Status Payment --}}
+                @php
+                    $paymentStatus = $trip->deposit?->payment?->status ?? null;
+                @endphp
+
+                @if (!$paymentStatus)
+                    <span
+                        class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-gray-200 text-gray-800">
+                        Belum Bayar
+                    </span>
+                @elseif ($paymentStatus === 'draft')
+                    <span
+                        class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-yellow-200 text-yellow-900">
+                        Pending
+                    </span>
+                @elseif ($paymentStatus === 'lunas')
+                    <span
+                        class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-green-200 text-green-900">
+                        Lunas
+                    </span>
+                @else
+                    <span
+                        class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-red-200 text-red-900">
+                        Unknown
+                    </span>
+                @endif
             </div>
+
 
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">

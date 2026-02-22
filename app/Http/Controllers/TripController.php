@@ -64,6 +64,8 @@ class TripController extends Controller
 
             'fee_total' => 'numeric|min:0',
 
+            'angsuran_total' => 'numeric|min:0|required',
+
             // Costs
 
             'bbm_total' => 'required|numeric|min:0',
@@ -88,13 +90,14 @@ class TripController extends Controller
             DB::beginTransaction();
 
             $trip_total = $validated['departure_total']
-                + $validated['return_total']
-                + $validated['fee_total'];
+                + $validated['return_total'];
 
             $cost_total = $validated['bbm_total']
                 + $validated['wash_total']
+                + $validated['makan_total']
                 + $validated['parking_total']
-                + $validated['repair_total'];
+                + $validated['repair_total']
+                + $validated['pom_total'];
 
             $trip = Trip::create([
                 ...$validated,
@@ -108,17 +111,22 @@ class TripController extends Controller
             ]);
 
             $driver = Driver::where('user_id','=',Auth::id())->first();
-            $total_deposit = $trip_total - $cost_total + $driver->tanggungan_koperasi + $cost->repair_total ;
-            $total_driver = $total_deposit * ($driver->persentase_hasil / 100);
-            $total_company = $total_deposit - $total_driver;
+            $total_tripcost = $trip_total - $cost_total;
+            $total_driver = $total_tripcost * ($driver->persentase_hasil / 100);
+            $total_company = $total_tripcost - $total_driver;
+            $total_deposit = $total_company + $driver->tanggungan_koperasi + $cost->repair_total + $trip->fee_total;
 
             Deposit::create([
                 'trip_id' => $trip->id,
                 'total_deposit' => $total_deposit,
                 'total_driver' => $total_driver,
                 'total_company' => $total_company,
+                'total_koperasi' => $validated['angsuran_total'],
                 'status' => 'Pending'
             ]);
+
+            $driver->tanggungan_koperasi = $driver->tanggungan_koperasi - $validated['angsuran_total'];
+            $driver->save();
 
             DB::commit();
 

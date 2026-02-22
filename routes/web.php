@@ -4,6 +4,7 @@ use App\Http\Controllers\DepositController;
 use App\Http\Controllers\DriverController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CarController;
+use App\Http\Controllers\ReportController;
 use App\Http\Controllers\TripController;
 use Illuminate\Support\Facades\Route;
 
@@ -23,6 +24,7 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/trip/edit/{id}', [TripController::class, 'edit'])->name('trip.edit');
     Route::get('/deposit/edit/{id}', [DepositController::class, 'edit'])->name('deposit.edit');
+    Route::post('/deposit/edit/{id}', [DepositController::class, 'store_payment'])->name('deposit.payment');
 
     Route::middleware(['role:admin'])->group(function () {
         Route::get('/driver', [DriverController::class, 'index'])->name('driver.index');
@@ -36,7 +38,7 @@ Route::middleware('auth')->group(function () {
         Route::post('/car', [CarController::class, 'store'])->name('car.store');
         Route::delete('/car/{id}', [CarController::class, 'delete'])->name('car.delete');
         Route::get('/trip', [TripController::class, 'index'])->name('trip.index');
-        
+
         Route::put('/trip/edit/{id}', [TripController::class, 'update'])->name('trip.update');
         Route::delete('/trip/edit/{id}', [TripController::class, 'delete'])->name('trip.delete');
 
@@ -45,6 +47,48 @@ Route::middleware('auth')->group(function () {
         Route::post('/deposit/create', [DepositController::class, 'store'])->name('deposit.store');
         Route::put('/deposit/edit/{id}', [DepositController::class, 'update'])->name('deposit.update');
         Route::delete('/deposit/edit/{id}', [DepositController::class, 'delete'])->name('deposit.delete');
+
+        Route::get('/report', [ReportController::class, 'index'])->name('report.index');
+
+        Route::get('/report/driver-income', [ReportController::class, 'driverIncome'])->name('report.driver-income');
+        Route::get(
+            '/report/driver-income/print',
+            [ReportController::class, 'driverIncomePrint']
+        )->name('report.driver-income.print');
+
+        Route::get('/report/repair-recap', [ReportController::class, 'repairRecap'])->name('report.repair-recap');
+        Route::get(
+            '/report/repair/print',
+            [ReportController::class, 'printRepairRecap']
+        )->name('report.repair.print');
+
+        Route::get(
+            'report/third-party-fee',
+            [ReportController::class, 'thirdPartyFee']
+        )->name('report.third-party-fee');
+
+        Route::get(
+            'report/third-party-fee/print',
+            [ReportController::class, 'printThirdPartyFee']
+        )->name('report.third-party-fee.print');
+
+        Route::get(
+            'report/koperasi-payment',
+            [ReportController::class, 'koperasiPayment']
+        )->name('report.koperasi-payment');
+
+        Route::get(
+            'report/koperasi-payment/print',
+            [ReportController::class, 'printKoperasiPayment']
+        )->name('report.koperasi-payment.print');
+
+        Route::get('/report/car-usage', [ReportController::class, 'carUsage'])
+            ->name('report.car-usage');
+
+        Route::get('/report/car-usage/print', [ReportController::class, 'printCarUsage'])
+            ->name('report.car-usage.print');
+
+
     });
 
     Route::middleware(['role:user'])->group(function () {
